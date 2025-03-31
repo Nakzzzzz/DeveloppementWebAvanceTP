@@ -6,7 +6,7 @@
 
   <table class="mt-4 w-full border border-gray-300">
     <thead>
-    <tr class="bg-gray-200">
+    <tr class="bg-gray-800 text-white">
       <th class="p-2 border">Position</th>
       <th class="p-2 border">Pilote</th>
       <th class="p-2 border">Écurie</th>
@@ -21,7 +21,7 @@
       <td class="p-2 border">{{ pilote.team.name }}</td>
       <td class="p-2 border">{{ pilote.points }}</td>
       <td class="p-2 border">
-        <button (click)="deletePilote(pilote.id)" class="text-red-500">❌</button>
+        <button (click)="deletePilote(pilote.id)" class="text-red-500 cursor-pointer">❌</button>
       </td>
     </tr>
     </tbody>

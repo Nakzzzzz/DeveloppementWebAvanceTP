@@ -1,21 +1,46 @@
 <div class="p-6">
-  <h1 class="text-2xl font-bold mb-4">🏆 Classement des pilotes</h1>
-  <table class="w-full text-left border-collapse">
+  <div class="flex justify-between items-center">
+    <h1 class="text-2xl font-bold">🏎️ Classement des pilotes</h1>
+    <button (click)="showModal = true" class="bg-blue-500 text-white px-4 py-2 rounded">+</button>
+  </div>
+
+  <table class="mt-4 w-full border border-gray-300">
     <thead>
-    <tr class="bg-gray-800 text-white">
-      <th class="p-3">Position</th>
-      <th class="p-3">Pilote</th>
-      <th class="p-3">Écurie</th>
-      <th class="p-3">Points</th>
+    <tr class="bg-gray-200">
+      <th class="p-2 border">Position</th>
+      <th class="p-2 border">Pilote</th>
+      <th class="p-2 border">Écurie</th>
+      <th class="p-2 border">Points</th>
+      <th class="p-2 border">Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let pilot of pilotes; let i = index" class="border-b hover:bg-gray-100">
-      <td class="p-3">{{ i + 1 }}</td>
-      <td class="p-3">{{ pilot.firstname}} {{ pilot.lastname }}</td>
-      <td class="p-3">{{ pilot.team }}</td>
-      <td class="p-3 font-bold">{{ pilot.points }}</td>
+    <tr *ngFor="let pilote of pilotes; let i = index" class="text-center">
+      <td class="p-2 border">{{ i + 1 }}</td>
+      <td class="p-2 border">{{ pilote.firstname }} {{ pilote.lastname }}</td>
+      <td class="p-2 border">{{ pilote.team.name }}</td>
+      <td class="p-2 border">{{ pilote.points }}</td>
+      <td class="p-2 border">
+        <button (click)="deletePilote(pilote.id)" class="text-red-500">❌</button>
+      </td>
     </tr>
     </tbody>
   </table>
+
+  <!-- Pop-up d'ajout -->
+  <div *ngIf="showModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+    <div class="bg-white p-6 rounded">
+      <h2 class="text-xl font-bold">Ajouter un pilote</h2>
+
+      <input [(ngModel)]="newPilote.firstname" placeholder="Prénom" class="border p-2 w-full mt-2">
+      <input [(ngModel)]="newPilote.lastname" placeholder="Nom" class="border p-2 w-full mt-2">
+
+      <select [(ngModel)]="newPilote.team" class="border p-2 w-full mt-2">
+        <option *ngFor="let team of teams" [ngValue]="team">{{ team.name }}</option>
+      </select>
+
+      <button (click)="addPilote()" class="bg-green-500 text-white px-4 py-2 rounded mt-2">Ajouter</button>
+      <button (click)="showModal = false" class="bg-gray-500 text-white px-4 py-2 rounded mt-2">Annuler</button>
+    </div>
+  </div>
 </div>

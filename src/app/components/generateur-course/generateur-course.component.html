@@ -1,0 +1,61 @@
+<div class="container mx-auto mt-10 p-5">
+  <h2 class="text-center text-3xl font-bold mb-5">🏁 Générateur de Courses</h2>
+
+  <!-- Sélection du circuit -->
+  <div class="mb-5">
+    <label for="circuit" class="block font-semibold mb-2">Sélectionner un circuit :</label>
+    <select id="circuit" class="w-full p-2 border rounded-md">
+      <option value="Monza">Monza 🇮🇹</option>
+      <option value="Silverstone">Silverstone 🇬🇧</option>
+      <option value="Spa-Francorchamps">Spa-Francorchamps 🇧🇪</option>
+      <option value="Suzuka">Suzuka 🇯🇵</option>
+    </select>
+  </div>
+
+  <!-- Type de course -->
+  <div class="mb-5">
+    <label class="block font-semibold mb-2">Type de course :</label>
+    <div class="flex gap-4">
+      <label class="flex items-center">
+        <input type="radio" name="typeCourse" value="Sprint" class="mr-2">
+        Sprint
+      </label>
+      <label class="flex items-center">
+        <input type="radio" name="typeCourse" value="Grand Prix" class="mr-2">
+        Grand Prix
+      </label>
+    </div>
+  </div>
+
+  <!-- Classement manuel -->
+  <h3 class="text-xl font-semibold mt-5">Définir le classement :</h3>
+  <div class="overflow-x-auto mt-3">
+    <table class="w-full border-collapse border border-gray-300">
+      <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="py-2 px-4 border">Position</th>
+        <th class="py-2 px-4 border">Pilote</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let pos of positions" class="bg-gray-100 hover:bg-gray-200">
+        <td class="py-2 px-4 text-center border">{{ pos }}</td>
+        <td class="py-2 px-4 border">
+          <select class="w-full p-2 border rounded-md">
+            <option *ngFor="let pilote of pilotes" [value]="pilote.nom">
+              {{ pilote.nom }} {{ pilote.prenom }} ({{ pilote.ecurie }})
+            </option>
+          </select>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bouton de validation -->
+  <div class="mt-5 text-center">
+    <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
+      Valider la course
+    </button>
+  </div>
+</div>

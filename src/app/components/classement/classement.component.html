@@ -1,24 +1,21 @@
-<div class="container mx-auto mt-10 p-5">
-  <h2 class="text-center text-3xl font-bold mb-5">🏎️ Classement Général des Pilotes</h2>
-
-  <div class="overflow-x-auto">
-    <table class="w-full border-collapse border border-gray-300">
-      <thead class="bg-gray-800 text-white">
-      <tr>
-        <th class="py-2 px-4 border">#</th>
-        <th class="py-2 px-4 border">Pilote</th>
-        <th class="py-2 px-4 border">Écurie</th>
-        <th class="py-2 px-4 border">Points</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let pilote of pilotes; let i = index" class="bg-gray-100 hover:bg-gray-200">
-        <td class="py-2 px-4 text-center border">{{ i + 1 }}</td>
-        <td class="py-2 px-4 border">{{ pilote.nom }} {{ pilote.prenom }}</td>
-        <td class="py-2 px-4 border">{{ pilote.ecurie }}</td>
-        <td class="py-2 px-4 text-center border font-semibold">{{ pilote.points }}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="p-6">
+  <h1 class="text-2xl font-bold mb-4">🏆 Classement des pilotes</h1>
+  <table class="w-full text-left border-collapse">
+    <thead>
+    <tr class="bg-gray-800 text-white">
+      <th class="p-3">Position</th>
+      <th class="p-3">Pilote</th>
+      <th class="p-3">Écurie</th>
+      <th class="p-3">Points</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let pilot of pilotes; let i = index" class="border-b hover:bg-gray-100">
+      <td class="p-3">{{ i + 1 }}</td>
+      <td class="p-3">{{ pilot.firstname}} {{ pilot.lastname }}</td>
+      <td class="p-3">{{ pilot.team }}</td>
+      <td class="p-3 font-bold">{{ pilot.points }}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>

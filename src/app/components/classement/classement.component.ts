@@ -1,11 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PiloteService } from '../../services/pilote.service';
+import { Pilot } from '../../models/pilot';
+import {NgForOf} from '@angular/common';
 
 @Component({
   selector: 'app-classement',
-  imports: [],
   templateUrl: './classement.component.html',
-  styleUrl: './classement.component.css'
+  imports: [
+    NgForOf
+  ],
+  styleUrls: ['./classement.component.css']
 })
-export class ClassementComponent {
+export class ClassementComponent implements OnInit {
+  pilotes: Pilot[] = [];
 
+  constructor(private piloteService: PiloteService) {}
+
+  ngOnInit(): void {
+    this.pilotes = this.piloteService.getPilots();
+  }
 }

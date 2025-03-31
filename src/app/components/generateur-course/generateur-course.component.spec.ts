@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GenerateurCourseComponent } from './generateur-course.component';
+import { GenerateurCoursesComponent } from './generateur-course.component';
 
 describe('GenerateurCourseComponent', () => {
-  let component: GenerateurCourseComponent;
-  let fixture: ComponentFixture<GenerateurCourseComponent>;
+  let component: GenerateurCoursesComponent;
+  let fixture: ComponentFixture<GenerateurCoursesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GenerateurCourseComponent]
+      imports: [GenerateurCoursesComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GenerateurCourseComponent);
+    fixture = TestBed.createComponent(GenerateurCoursesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

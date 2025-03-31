@@ -1,13 +1,23 @@
-<div class="min-h-screen flex flex-col bg-gray-100">
-  <!-- Navbar -->
-  <nav class="bg-gray-800 text-white py-4">
-    <div class="container mx-auto flex justify-between items-center px-4">
-      <h1 class="text-2xl font-bold">🏎️ F1 Dashboard</h1>
-      <ul class="flex space-x-6">
-        <li><a routerLink="/" class="hover:text-gray-400">🏠 Accueil</a></li>
-        <li><a routerLink="/classement" class="hover:text-gray-400">🏆 Classement</a></li>
-        <li><a routerLink="/generateur-course" class="hover:text-gray-400">🏁 Générateur de Courses</a></li>
-      </ul>
+<div class="w-64 h-screen bg-gray-800 text-white flex flex-col justify-between fixed">
+  <!-- Logo / Titre -->
+  <div>
+    <div class="p-4 text-lg font-bold border-b border-gray-700">
+      🏎️ F1 Manager
     </div>
-  </nav>
+    <!-- Liens de navigation -->
+    <div class="m-3 flex flex-col gap-2">
+      <div class="hover:bg-gray-700 rounded cursor-pointer p-3"
+           [routerLink]="['/']" routerLinkActive="bg-gray-600">
+        🏠 Accueil
+      </div>
+      <div class="hover:bg-gray-700 rounded cursor-pointer p-3"
+           [routerLink]="['/classement']" routerLinkActive="bg-gray-600">
+        🏆 Classement
+      </div>
+      <div class="hover:bg-gray-700 rounded cursor-pointer p-3"
+           [routerLink]="['/generateur-course']" routerLinkActive="bg-gray-600">
+        🏁 Générateur
+      </div>
+    </div>
+  </div>
 </div>

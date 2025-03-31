@@ -1,4 +1,9 @@
-<div class="flex h-full">
+<div class="flex">
+  <!-- Sidebar -->
   <app-navbar></app-navbar>
-  <router-outlet></router-outlet>
+
+  <!-- Contenu principal bien décalé -->
+  <div class="flex-1 min-h-screen ml-64 p-6">
+    <router-outlet></router-outlet>
+  </div>
 </div>

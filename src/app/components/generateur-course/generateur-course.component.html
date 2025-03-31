@@ -41,20 +41,29 @@
       <tr *ngFor="let pos of positions" class="bg-gray-100 hover:bg-gray-200">
         <td class="py-2 px-4 text-center border">{{ pos }}</td>
         <td class="py-2 px-4 border">
-          <select class="w-full p-2 border rounded-md">
-            <option *ngFor="let pilote of pilotes" [value]="pilote.nom">
-              {{ pilote.nom }} {{ pilote.prenom }} ({{ pilote.ecurie }})
+          <select class="w-full p-2 border rounded-md" [(ngModel)]="classement[pos - 1].pilote" (change)="onPilotChange()">
+            <option [ngValue]="null" disabled selected>Sélectionner un pilote</option>
+            <option *ngFor="let pilot of pilotes" [ngValue]="pilot" [disabled]="isPilotSelected(pilot)">
+              {{ pilot.firstname }} {{ pilot.lastname }} ({{ pilot.team }})
             </option>
           </select>
         </td>
+        <td class="py-2 px-4 text-center border">
+          <!-- Bouton suppression avec icône -->
+          <button *ngIf="classement[pos - 1].pilote" (click)="removePilot(pos)" class="text-red-500 hover:text-red-700">
+            ❌
+          </button>
+        </td>
       </tr>
       </tbody>
+
+
     </table>
   </div>
 
   <!-- Bouton de validation -->
   <div class="mt-5 text-center">
-    <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
+    <button (click)="validerCourse()" class="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-md">
       Valider la course
     </button>
   </div>

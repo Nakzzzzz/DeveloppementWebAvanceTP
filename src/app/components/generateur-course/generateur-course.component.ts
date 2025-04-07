@@ -1,64 +1,49 @@
 import { Component, OnInit } from '@angular/core';
+import { RaceService } from '../../services/race.service';
 import { PiloteService } from '../../services/pilote.service';
-import { TeamService } from '../../services/team.service';
+import { RaceResult } from '../../models/RaceResult';
 import { Pilot } from '../../models/pilot';
-import { Team } from '../../models/team';
 import {FormsModule} from '@angular/forms';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-generateur-course',
   templateUrl: './generateur-course.component.html',
   imports: [
     FormsModule,
-    NgForOf
-  ],
-  styleUrls: ['./generateur-course.component.css']
+    NgForOf,
+    NgIf
+  ]
 })
 export class GenerateurCourseComponent implements OnInit {
-  pilotes: Pilot[] = [];
-  teams: Team[] = [];
-  circuits = ['Monaco', 'Silverstone', 'Spa-Francorchamps', 'Suzuka', 'Interlagos'];
-  selectedCircuit = '';
-  selectedRaceType = '';
+  circuits = ['Monaco', 'Spa-Francorchamps', 'Silverstone', 'Suzuka']; // Liste des circuits
+  selectedCircuit: string = '';
+  selectedRaceType: string = 'Grand Prix';
+  classement: { pilot: Pilot; position: number }[] = [];
+  pointsAttribution = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
 
-  classement: (Pilot | null)[] = Array(20).fill(null);
-  pointsAttribution = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]; // Points F1 standard
-
-  constructor(private piloteService: PiloteService, private teamService: TeamService) {}
+  constructor(private raceService: RaceService, private piloteService: PiloteService) {}
 
   ngOnInit(): void {
-    this.pilotes = this.piloteService.getPilots();
-    this.teams = this.teamService.getTeams();
+    this.loadRaceResult();
   }
 
-  isSelected(pilote: Pilot): boolean {
-    return this.classement.includes(pilote);
+  loadRaceResult(): void {
+    const existingResult = this.raceService.getRaceResult(this.selectedCircuit);
+    if (existingResult) {
+      this.selectedRaceType = existingResult.raceType;
+      this.classement = [...existingResult.classement]; // Charger l'ancien classement
+    } else {
+      this.resetClassement();
+    }
+  }
+
+  resetClassement(): void {
+    this.classement = [];
   }
 
   validateRace(): void {
-    // Mise à jour des points des pilotes
-    this.classement.forEach((pilote, index) => {
-      if (pilote) {
-        let points = this.pointsAttribution[index] || 0;
-        pilote.points += points;
-      }
-    });
-
-    // Mise à jour des points des écuries
-    this.updateTeamPoints();
-
-    // Trier les classements
-    this.pilotes.sort((a, b) => b.points - a.points);
-    this.teams.sort((a, b) => b.points - a.points);
-  }
-
-
-  updateTeamPoints(): void {
-    this.teams.forEach(team => {
-      team.points = this.pilotes
-        .filter(pilote => pilote.team.id === team.id)
-        .reduce((sum, pilote) => sum + pilote.points, 0);
-    });
+    const raceResult = new RaceResult(this.selectedCircuit, this.selectedRaceType, this.classement);
+    this.raceService.saveRaceResult(raceResult);
   }
 }

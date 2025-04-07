@@ -1,53 +1,59 @@
 import { Component, OnInit } from '@angular/core';
 import { PiloteService } from '../../services/pilote.service';
-import { TeamService } from '../../services/team.service';
 import { Pilot } from '../../models/pilot';
-import { Team } from '../../models/team';
 import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-classement',
   templateUrl: './classement.component.html',
+  styleUrls: ['./classement.component.css'],
+  standalone: true,
   imports: [
-    NgForOf,
     NgIf,
-    FormsModule
-  ],
-  styleUrls: ['./classement.component.css']
+    FormsModule,
+    NgForOf
+  ]
 })
 export class ClassementComponent implements OnInit {
   pilotes: Pilot[] = [];
-  teams: Team[] = [];
-  showModal = false; // Pour afficher le formulaire d'ajout
-  newPilote: Pilot = { id: 0, lastname: '', firstname: '', team: {} as Team, points: 0 };
+  showModal = false;
+  newPilote: {
+    lastname: string;
+    firstname: string;
+    team: { id: number; name: string; country: string; points: number };
+    points: number;
+  } = {
+    lastname: '',
+    firstname: '',
+    team: { id: 1, name: 'Ferrari', country: 'Italy', points: 0 },
+    points: 0
+  };
 
-  constructor(private piloteService: PiloteService, private teamService: TeamService) {}
+  constructor(private piloteService: PiloteService) {}
 
   ngOnInit(): void {
+    this.loadPilots();
+  }
+
+  loadPilots(): void {
     this.pilotes = this.piloteService.getPilots();
-    this.teams = this.teamService.getTeams();
   }
 
   addPilote(): void {
-    this.piloteService.addPilote(this.newPilote);
-    this.updateTeamPoints();
-    this.pilotes = this.piloteService.getPilots();
+    if (this.newPilote instanceof Pilot) {
+      this.piloteService.addPilot(this.newPilote);
+    }
     this.showModal = false;
-    this.newPilote = { id: 0, lastname: '', firstname: '', team: {} as Team, points: 0 };
+    this.newPilote = {
+      lastname: '',
+      firstname: '',
+      team: { id: 1, name: '', country: '', points: 0 },
+      points: 0
+    };
   }
 
-  deletePilote(id: Number | undefined): void {
-    this.piloteService.deletePilote(id);
-    this.updateTeamPoints();
-    this.pilotes = this.piloteService.getPilots();
-  }
-
-  updateTeamPoints(): void {
-    this.teams.forEach(team => {
-      team.points = this.pilotes
-        .filter(pilote => pilote.team.id === team.id)
-        .reduce((sum, pilote) => sum + pilote.points, 0);
-    });
+  deletePilote(id: number): void {
+    this.piloteService.deletePilot({ id } as Pilot);
   }
 }

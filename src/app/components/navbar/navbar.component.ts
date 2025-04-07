@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import {ApiService} from '../../services/api.service';
 
 @Component({
   selector: 'app-navbar',
   imports: [
-    RouterLink
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -17,7 +18,7 @@ export class NavbarComponent {
 
   ngOnInit(): void {
     this.checkApiState();
-    setInterval(() => this.checkApiState(), 1000);
+    setInterval(() => this.checkApiState(), 10000);
   }
 
   checkApiState(): void {

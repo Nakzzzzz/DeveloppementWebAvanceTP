@@ -1,7 +1,7 @@
 <div class="p-6">
   <div class="flex justify-between items-center mb-4">
     <h2 class="text-xl font-bold">Classement des pilotes</h2>
-    <button class="text-white bg-blue-500 px-4 py-2 rounded" (click)="showModal = true">+ Ajouter</button>
+    <button class="text-white bg-gray-800 hover:bg-gray-600 rounded cursor-pointer px-4 py-2 rounded" (click)="showModal = true">+ Ajouter</button>
   </div>
 
   <table class="min-w-full bg-white rounded shadow">
@@ -39,8 +39,8 @@
         <input class="w-full mb-3 p-2 border rounded" placeholder="Nom de l'écurie" [(ngModel)]="newPilote.team.name" name="teamName" required>
         <input type="number" class="w-full mb-3 p-2 border rounded" placeholder="Points" [(ngModel)]="newPilote.points" name="points" required>
         <div class="flex justify-end gap-2">
-          <button type="button" (click)="showModal = false" class="text-gray-500">Annuler</button>
-          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Ajouter</button>
+          <button type="button" (click)="showModal = false" class="text-gray-500 cursor-pointer">Annuler</button>
+          <button type="submit" class="bg-gray-800 hover:bg-gray-600 rounded cursor-pointer text-white px-4 py-2 rounded">Ajouter</button>
         </div>
       </form>
     </div>

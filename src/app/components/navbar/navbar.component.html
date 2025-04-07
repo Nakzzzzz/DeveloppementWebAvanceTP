@@ -1,27 +1,41 @@
-<div class="w-64 h-screen bg-gray-800 text-white flex flex-col justify-between fixed">
+<div class="w-64 h-screen bg-black text-white flex flex-col justify-between fixed shadow-lg">
   <!-- Logo / Titre -->
   <div>
-    <div class="p-4 text-lg font-bold border-b border-gray-700">
-      🏎️ F1 Manager
+    <div class="p-6 text-3xl font-bold text-red-600 border-b border-gray-700 flex items-center justify-center">
+      <span class="mr-2"><img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_285,q_auto/f_auto/q_auto/fom-website/etc/designs/fom-website/images/F1_75_Logo" alt="F1 Logo" class="w-50 h-12 mr-2"></span>
     </div>
     <!-- Liens de navigation -->
-    <div class="m-3 flex flex-col gap-2">
-      <div class="hover:bg-gray-700 rounded cursor-pointer p-3"
-           [routerLink]="['/']" routerLinkActive="bg-gray-600">
-        🏠 Accueil
+    <div class="m-3 flex flex-col gap-4">
+      <!-- Lien Accueil -->
+      <div class="nav-item hover:bg-red-600 hover:text-white rounded-lg cursor-pointer p-4 transition-all duration-300 flex items-center gap-3"
+           [routerLink]="['/']" routerLinkActive="bg-red-500 text-white">
+        <span>🏠</span> Accueil
       </div>
-      <div class="hover:bg-gray-700 rounded cursor-pointer p-3"
-           [routerLink]="['/classement']" routerLinkActive="bg-gray-600">
-        🏆 Classement Pilotes
+      <!-- Lien Classement Pilotes -->
+      <div class="nav-item hover:bg-red-600 hover:text-white rounded-lg cursor-pointer p-4 transition-all duration-300 flex items-center gap-3"
+           [routerLink]="['/classement']" routerLinkActive="bg-red-500 text-white">
+        <span>🏆</span> Classement Pilotes
       </div>
-      <div class="hover:bg-gray-700 rounded cursor-pointer p-3"
-           [routerLink]="['/classement-ecuries']" routerLinkActive="bg-gray-600">
-        🏆 Classement Ecuries
+      <!-- Lien Classement Ecuries -->
+      <div class="nav-item hover:bg-red-600 hover:text-white rounded-lg cursor-pointer p-4 transition-all duration-300 flex items-center gap-3"
+           [routerLink]="['/classement-ecuries']" routerLinkActive="bg-red-500 text-white">
+        <span>🏆</span> Classement Ecuries
       </div>
-      <div class="hover:bg-gray-700 rounded cursor-pointer p-3"
-           [routerLink]="['/generateur-course']" routerLinkActive="bg-gray-600">
-        🏁 Générateur
+      <!-- Lien Générateur -->
+      <div class="nav-item hover:bg-red-600 hover:text-white rounded-lg cursor-pointer p-4 transition-all duration-300 flex items-center gap-3"
+           [routerLink]="['/generateur-course']" routerLinkActive="bg-red-500 text-white">
+        <span>🏁</span> Simulateur
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  .nav-item {
+    transition: all 0.3s ease;
+  }
+  .nav-item:hover {
+    background-color: #D32F2F; /* Rouge F1 */
+    color: white;
+  }
+</style>

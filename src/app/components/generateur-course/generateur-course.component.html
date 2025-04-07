@@ -1,70 +1,44 @@
-<div class="container mx-auto mt-10 p-5">
-  <h2 class="text-center text-3xl font-bold mb-5">🏁 Générateur de Courses</h2>
+<div class="p-6">
+  <h1 class="text-2xl font-bold">🏁 Générateur de course</h1>
 
   <!-- Sélection du circuit -->
-  <div class="mb-5">
-    <label for="circuit" class="block font-semibold mb-2">Sélectionner un circuit :</label>
-    <select id="circuit" class="w-full p-2 border rounded-md">
-      <option value="Monza">Monza 🇮🇹</option>
-      <option value="Silverstone">Silverstone 🇬🇧</option>
-      <option value="Spa-Francorchamps">Spa-Francorchamps 🇧🇪</option>
-      <option value="Suzuka">Suzuka 🇯🇵</option>
+  <div class="mt-4">
+    <label class="block font-semibold">Sélectionnez un circuit :</label>
+    <select class="border p-2 w-full" [(ngModel)]="selectedCircuit" (change)="loadRaceResult()">
+      <option *ngFor="let circuit of circuits" [value]="circuit">{{ circuit }}</option>
     </select>
   </div>
 
-  <!-- Type de course -->
-  <div class="mb-5">
-    <label class="block font-semibold mb-2">Type de course :</label>
-    <div class="flex gap-4">
-      <label class="flex items-center">
-        <input type="radio" name="typeCourse" value="Sprint" class="mr-2">
-        Sprint
-      </label>
-      <label class="flex items-center">
-        <input type="radio" name="typeCourse" value="Grand Prix" class="mr-2">
-        Grand Prix
-      </label>
-    </div>
+  <!-- Sélection du type de course -->
+  <div class="mt-4">
+    <label class="block font-semibold">Type de course :</label>
+    <select class="border p-2 w-full" [(ngModel)]="selectedRaceType">
+      <option value="Grand Prix">Grand Prix</option>
+      <option value="Sprint">Sprint</option>
+    </select>
   </div>
 
-  <!-- Classement manuel -->
-  <h3 class="text-xl font-semibold mt-5">Définir le classement :</h3>
-  <div class="overflow-x-auto mt-3">
-    <table class="w-full border-collapse border border-gray-300">
-      <thead class="bg-gray-800 text-white">
-      <tr>
-        <th class="py-2 px-4 border">Position</th>
-        <th class="py-2 px-4 border">Pilote</th>
+  <!-- Affichage du classement existant ou création d'un nouveau -->
+  <div *ngIf="selectedCircuit" class="mt-6">
+    <h2 class="text-xl font-semibold">Classement de la course</h2>
+
+    <table class="mt-4 w-full border border-gray-300 rounded-lg shadow-md">
+      <thead>
+      <tr class="bg-gray-800 text-white">
+        <th class="p-3 border">Position</th>
+        <th class="p-3 border">Pilote</th>
+        <th class="p-3 border">Points</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let pos of positions" class="bg-gray-100 hover:bg-gray-200">
-        <td class="py-2 px-4 text-center border">{{ pos }}</td>
-        <td class="py-2 px-4 border">
-          <select class="w-full p-2 border rounded-md" [(ngModel)]="classement[pos - 1].pilote" (change)="onPilotChange()">
-            <option [ngValue]="null" disabled selected>Sélectionner un pilote</option>
-            <option *ngFor="let pilot of pilotes" [ngValue]="pilot" [disabled]="isPilotSelected(pilot)">
-              {{ pilot.firstname }} {{ pilot.lastname }} ({{ pilot.team }})
-            </option>
-          </select>
-        </td>
-        <td class="py-2 px-4 text-center border">
-          <!-- Bouton suppression avec icône -->
-          <button *ngIf="classement[pos - 1].pilote" (click)="removePilot(pos)" class="text-red-500 hover:text-red-700">
-            ❌
-          </button>
-        </td>
+      <tr *ngFor="let item of classement; let i = index" class="text-center even:bg-gray-100">
+        <td class="p-3 border font-semibold">{{ i + 1 }}</td>
+        <td class="p-3 border">{{ item.pilot.firstname }} {{ item.pilot.lastname }}</td>
+        <td class="p-3 border font-bold">{{ pointsAttribution[i] || 0 }}</td>
       </tr>
       </tbody>
-
-
     </table>
   </div>
 
-  <!-- Bouton de validation -->
-  <div class="mt-5 text-center">
-    <button (click)="validerCourse()" class="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-md">
-      Valider la course
-    </button>
-  </div>
+  <button class="mt-6 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded cursor-pointer" (click)="validateRace()">✅ Valider la course</button>
 </div>

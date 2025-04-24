@@ -12,7 +12,6 @@ import {TeamService} from '../../services/team.service';
   styleUrls: ['./classement.component.css'],
   standalone: true,
   imports: [
-    NgIf,
     FormsModule,
     NgForOf
   ]

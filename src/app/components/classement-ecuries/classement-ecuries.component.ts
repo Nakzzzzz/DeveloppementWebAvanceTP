@@ -17,10 +17,8 @@ export class ClassementEcuriesComponent implements OnInit {
   constructor(private teamService: TeamService) {}
 
   ngOnInit(): void {
-    this.updateTeams();
-  }
-
-  updateTeams(): void {
-    this.teams = this.teamService.getTeams().sort((a, b) => b.points - a.points);
+    this.teamService.getTeams().subscribe(data => {
+      this.teams = data;
+    });
   }
 }

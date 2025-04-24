@@ -23,7 +23,7 @@ export class ApiService {
         });
     });
   }
-
+/*
 // Extrait pour les pilotes
   getPilots(): Promise<Pilot[]> {
     return new Promise(resolve => {
@@ -58,5 +58,5 @@ export class ApiService {
           error: err => reject(err)
         });
     });
-  }
+  }*/
 }

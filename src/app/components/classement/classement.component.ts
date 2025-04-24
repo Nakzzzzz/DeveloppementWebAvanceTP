@@ -3,6 +3,8 @@ import { PiloteService } from '../../services/pilote.service';
 import { Pilot } from '../../models/pilot';
 import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {Team} from '../../models/team';
+import {TeamService} from '../../services/team.service';
 
 @Component({
   selector: 'app-classement',
@@ -16,6 +18,18 @@ import { FormsModule } from '@angular/forms';
   ]
 })
 export class ClassementComponent implements OnInit {
+  pilots: Pilot[] = [];
+
+  constructor(private pilotService: PiloteService) {}
+
+  ngOnInit(): void {
+    this.pilotService.getPilots().subscribe(data => {
+      this.pilots = data;
+    });
+  }
+
+
+  /*
   pilotes: Pilot[] = [];
   showModal = false;
   newPilote: {
@@ -56,4 +70,5 @@ export class ClassementComponent implements OnInit {
   deletePilote(id: number): void {
     this.piloteService.deletePilot({ id } as Pilot);
   }
+   */
 }

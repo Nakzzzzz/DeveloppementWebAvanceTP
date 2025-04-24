@@ -1,31 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Team } from '../models/team';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamService {
-  private teams: Team[] = [
-    new Team(1, 'Red Bull', 'Autriche', 0),
-    new Team(2, 'Mercedes', 'Royaume-Uni', 0),
-    new Team(3, 'Ferrari', 'Italie', 0),
-    new Team(4, 'McLaren', 'Royaume-Uni', 0),
-    new Team(5, 'Alpine', 'France', 0),
-    new Team(6, 'Aston Martin', 'Royaume-Uni', 0),
-    new Team(7, 'RB Cash App', 'Autriche', 0),
-    new Team(8, 'Haas', 'USA', 0),
-    new Team(9, 'Williams', 'Royaume-Uni', 0),
-    new Team(10, 'Kick Sauber', 'Suisse', 0)
-  ];
+  private apiUrl = 'http://localhost:8080/api/teams';
 
-  getTeams(): Team[] {
-    return this.teams;
+  constructor(private http: HttpClient) {}
+
+  getTeams(): Observable<Team[]> {
+    return this.http.get<Team[]>(this.apiUrl);
   }
 
-  updateTeamPoints(teamId: number, points: number): void {
-    const team = this.teams.find(t => t.id === teamId);
-    if (team) {
-      team.points += points;
-    }
+  updateTeamPoints(teamId: number, points: number): Observable<any> {
+    const url = `${this.apiUrl}/${teamId}/points`;
+    return this.http.put(url, { points });
   }
 }

@@ -4,12 +4,6 @@
     <h2 class="text-2xl font-bold text-red-600 flex items-center gap-2">
       🏆 Classement des pilotes
     </h2>
-    <button
-      class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded shadow transition duration-300"
-      (click)="showModal = true"
-    >
-      + Ajouter
-    </button>
   </div>
 
   <!-- Tableau -->
@@ -25,26 +19,19 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let pilote of pilotes; let i = index" class="even:bg-gray-100 odd:bg-white hover:bg-gray-50 transition">
+    <tr *ngFor="let pilot of pilots; let i = index" class="even:bg-gray-100 odd:bg-white hover:bg-gray-50 transition">
       <td class="py-2 px-4 font-semibold text-gray-800">{{ i + 1 }}</td>
-      <td class="py-2 px-4 text-gray-700">{{ pilote.lastname }}</td>
-      <td class="py-2 px-4 text-gray-700">{{ pilote.firstname }}</td>
-      <td class="py-2 px-4 text-gray-700">{{ pilote.team.name }}</td>
-      <td class="py-2 px-4 font-bold text-red-600">{{ pilote.points }}</td>
+      <td class="py-2 px-4 text-gray-700">{{ pilot.lastname }}</td>
+      <td class="py-2 px-4 text-gray-700">{{ pilot.firstname }}</td>
+      <td class="py-2 px-4 text-gray-700">{{ pilot.team.name }}</td>
+      <td class="py-2 px-4 font-bold text-red-600">{{ pilot.points }}</td>
       <td class="py-2 px-4">
-        <button
-          (click)="deletePilote(pilote.id)"
-          class="text-red-500 hover:text-red-700 transition"
-          title="Supprimer"
-        >
-          🗑️
-        </button>
       </td>
     </tr>
     </tbody>
   </table>
-
-  <!-- Modal Ajouter -->
+<!--
+   Modal Ajouter
   <div
     *ngIf="showModal"
     class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50"
@@ -99,5 +86,5 @@
         </div>
       </form>
     </div>
-  </div>
+  </div> -->
 </div>

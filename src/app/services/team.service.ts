@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Team } from '../models/team';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,9 @@ export class TeamService {
   constructor(private http: HttpClient) {}
 
   getTeams(): Observable<Team[]> {
-    return this.http.get<Team[]>(this.apiUrl);
+    return this.http.get<Team[]>(this.apiUrl).pipe(
+      map(teams => teams.sort((a, b) => b.points - a.points))
+    );
   }
 
-  updateTeamPoints(teamId: number, points: number): Observable<any> {
-    const url = `${this.apiUrl}/${teamId}/points`;
-    return this.http.put(url, { points });
-  }
 }

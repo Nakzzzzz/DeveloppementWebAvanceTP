@@ -3,71 +3,52 @@ import { PiloteService } from '../../services/pilote.service';
 import { Pilot } from '../../models/pilot';
 import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {Team} from '../../models/team';
-import {TeamService} from '../../services/team.service';
 
 @Component({
   selector: 'app-classement',
-  templateUrl: './classement.component.html',
+  templateUrl: 'classement.component.html',
   styleUrls: ['./classement.component.css'],
   standalone: true,
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf
   ]
 })
 export class ClassementComponent implements OnInit {
-  pilots: Pilot[] = [];
-
-  constructor(private pilotService: PiloteService) {}
-
-  ngOnInit(): void {
-    this.pilotService.getPilots().subscribe(data => {
-      this.pilots = data;
-    });
-  }
-
-
-  /*
   pilotes: Pilot[] = [];
-  showModal = false;
-  newPilote: {
-    lastname: string;
-    firstname: string;
-    team: { id: number; name: string; country: string; points: number };
-    points: number;
-  } = {
-    lastname: '',
-    firstname: '',
-    team: { id: 1, name: 'Ferrari', country: 'Italy', points: 0 },
-    points: 0
-  };
+  selectedPilot: Pilot | null = null;
+  points: number = 0;
 
   constructor(private piloteService: PiloteService) {}
 
   ngOnInit(): void {
-    this.loadPilots();
+    this.refreshPilots();
   }
 
-  loadPilots(): void {
-    this.pilotes = this.piloteService.getPilots();
+  openModal(pilot: Pilot): void {
+    this.selectedPilot = pilot;
+    this.points = 0; // Réinitialiser les points à chaque ouverture de la pop-up
   }
 
-  addPilote(): void {
-    if (this.newPilote instanceof Pilot) {
-      this.piloteService.addPilot(this.newPilote);
+  closeModal(): void {
+    this.selectedPilot = null;
+  }
+
+  addPoints(): void {
+    if (this.selectedPilot) {
+      this.piloteService.updatePilotPoints(this.selectedPilot.id, this.points).subscribe(() => {
+        this.closeModal();
+        this.refreshPilots(); // Rafraîchir la liste des pilotes après la mise à jour
+      });
     }
-    this.showModal = false;
-    this.newPilote = {
-      lastname: '',
-      firstname: '',
-      team: { id: 1, name: '', country: '', points: 0 },
-      points: 0
-    };
   }
 
-  deletePilote(id: number): void {
-    this.piloteService.deletePilot({ id } as Pilot);
+  refreshPilots(): void {
+    this.piloteService.getPilots().subscribe(pilots => {
+      this.pilotes = pilots;
+    });
   }
-   */
+
+
 }
